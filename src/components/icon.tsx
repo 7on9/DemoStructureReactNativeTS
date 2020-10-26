@@ -68,6 +68,6 @@ export const Icon = (props: AppIconProps) => {
       default:
         return <FontAwesome {...props} />
     }
-  }, [props.fontFamily])
+  }, [props])
   return RNIcon
 }

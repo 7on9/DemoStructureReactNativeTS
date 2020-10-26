@@ -1,13 +1,15 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import React, { FC, useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ViewProps } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { APP_COLORS, APP_SIZES, SCREENS_NAME } from '../constants'
 import { Icon } from './icon'
 
-export const Drawer: FC<DrawerContentComponentProps> = (props: DrawerContentComponentProps) => {
-  const [currentScreen, setCurrentScreen] = useState(null)
-  const { navigation,  } = props
+export const Drawer: FC<DrawerContentComponentProps> = (
+  props: DrawerContentComponentProps
+) => {
+  const [currentScreenIdx, setCurrentScreenIdx] = useState(0)
+  const { navigation } = props
   const screens = [
     {
       name: 'Home',
@@ -18,7 +20,7 @@ export const Drawer: FC<DrawerContentComponentProps> = (props: DrawerContentComp
       subChildren: [],
     },
     {
-      name: 'user',
+      name: 'User',
       route: SCREENS_NAME.User,
       leftIcon: 'home',
       rightIcon: 'angle-right',
@@ -27,26 +29,26 @@ export const Drawer: FC<DrawerContentComponentProps> = (props: DrawerContentComp
     },
   ]
 
-  const renderItem = (item: ScreenItem, style: {}) => {
+  const ScreenItem: FC<{ item: ScreenItemProps, index: number, style?: ViewProps }> = ({ item, index, style }) => {
     // const { item, index } = data
-    const bgColor =
-      item.route == currentScreen ? 'rgba(0, 0, 0, 0.2)' : '#f0f0f0'
-      // item.route == currentScreen ? 'rgba(0, 0, 0, 0.2)' : 'transparent'
-    const iconColor = item.route == currentScreen ? '#52489C' : '#206BA4'
+    const bgColor = index == currentScreenIdx ? 'rgba(0, 0, 0, 0.2)' : '#f0f0f0'
+    // item.route == currentScreen ? 'rgba(0, 0, 0, 0.2)' : 'transparent'
+    const iconColor = index == currentScreenIdx ? '#52489C' : '#206BA4'
     // const iconColor = item.route == currentScreen ? '#003366' : '#206BA4'
-
     return (
       <View
+        key={item.name}
         style={[
           styles.itemContainer,
           {
             backgroundColor: bgColor,
-            height: (APP_SIZES.heightScreen * 0.1),
-            flexDirection: 'row'
+            height: APP_SIZES.heightScreen * 0.1,
+            flexDirection: 'row',
           },
           style,
         ]}
         onTouchStart={() => {
+          setCurrentScreenIdx(index)
           navigation.navigate(item.route)
         }}>
         <View style={{ flex: 3 }}>
@@ -69,13 +71,14 @@ export const Drawer: FC<DrawerContentComponentProps> = (props: DrawerContentComp
       </View>
     )
   }
+
   return (
     <View style={styles.container}>
-      <View style={{ marginTop: APP_SIZES.heightScreen * 0.25 }}>
-
-      </View>
-      <ScrollView style={styles.listContainer} contentContainerStyle={{ height: '100%' }}>
-          {screens.map(item => renderItem(item, {}))}
+      <View style={{ marginTop: APP_SIZES.heightScreen * 0.25 }}></View>
+      <ScrollView
+        style={styles.listContainer}
+        contentContainerStyle={{ height: '100%' }}>
+        {screens.map((item, idx) => <ScreenItem item={item} index={idx} key={idx} />)}
       </ScrollView>
     </View>
   )
@@ -106,7 +109,6 @@ const styles = StyleSheet.create({
   listContainer: {
     // backgroundColor: 'transparent', //'#f5f5f5',
     flex: 6,
-    backgroundColor: '#adad',
   },
   icon: {
     color: APP_COLORS.text.dark,
@@ -124,8 +126,8 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: APP_COLORS.text.dark,
-    borderBottomWidth: 0.35,
+    // borderBottomColor: APP_COLORS.text.dark,
+    // borderBottomWidth: 0.35,
     // marginLeft: 10,
     // marginRight: 10,
   },
@@ -138,11 +140,11 @@ const styles = StyleSheet.create({
   },
 })
 
-interface ScreenItem {
+interface ScreenItemProps {
   name: string
   route: string
   leftIcon: string
   rightIcon: string
   fontFamily: string
-  subChildren?: Array<ScreenItem>
+  subChildren?: Array<ScreenItemProps>
 }
