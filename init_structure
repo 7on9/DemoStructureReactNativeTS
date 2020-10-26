@@ -1,0 +1,33 @@
+mkdir src
+
+cd src
+
+mkdir assets
+
+mkdir common
+
+mkdir components
+
+mkdir configs
+
+mkdir configs/navigation
+
+mkdir constants
+
+mkdir i18n
+
+mkdir i18n/locales
+
+mkdir redux
+
+mkdir redux/reducers
+
+mkdir redux/actions
+
+mkdir redux/sagas
+
+mkdir screens
+
+mkdir utils
+
+
