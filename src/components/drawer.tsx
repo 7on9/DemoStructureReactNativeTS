@@ -1,9 +1,18 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import React, { FC, useState } from 'react'
-import { View, Text, StyleSheet, ViewProps } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
-import { APP_COLORS, APP_SIZES, SCREENS_NAME } from '../constants'
+import { View, Text, StyleSheet, ViewProps, Platform, Alert } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  APP_COLORS,
+  APP_ROUTES,
+  APP_SIZES,
+  BUILD_TYPE,
+  BUILD_TYPE_RELEASE,
+  SCREENS_NAME,
+} from '../constants'
 import { Icon } from './icon'
+import { version } from '../../package.json'
+import { StackActions } from '@react-navigation/native'
 
 export const Drawer: FC<DrawerContentComponentProps> = (
   props: DrawerContentComponentProps
@@ -29,7 +38,11 @@ export const Drawer: FC<DrawerContentComponentProps> = (
     },
   ]
 
-  const ScreenItem: FC<{ item: ScreenItemProps, index: number, style?: ViewProps }> = ({ item, index, style }) => {
+  const ScreenItem: FC<{
+    item: ScreenItemProps
+    index: number
+    style?: ViewProps
+  }> = ({ item, index, style }) => {
     // const { item, index } = data
     const bgColor = index == currentScreenIdx ? 'rgba(0, 0, 0, 0.2)' : '#f0f0f0'
     // item.route == currentScreen ? 'rgba(0, 0, 0, 0.2)' : 'transparent'
@@ -72,14 +85,66 @@ export const Drawer: FC<DrawerContentComponentProps> = (
     )
   }
 
+  const doLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Confirm logout',
+      [
+          {
+              text:'Logout',
+              onPress: () => {
+                navigation.dispatch(StackActions.replace(APP_ROUTES.Unauthorized))
+              },
+              style: 'destructive',
+          },
+          {
+              text: 'Cancel',
+              onPress: () => {},
+              style: 'cancel',
+          },
+      ],
+      { cancelable: true }
+  )
+    
+  }
+
   return (
     <View style={styles.container}>
       <View style={{ marginTop: APP_SIZES.heightScreen * 0.25 }}></View>
       <ScrollView
         style={styles.listContainer}
         contentContainerStyle={{ height: '100%' }}>
-        {screens.map((item, idx) => <ScreenItem item={item} index={idx} key={idx} />)}
+        {screens.map((item, idx) => (
+          <ScreenItem item={item} index={idx} key={idx} />
+        ))}
       </ScrollView>
+      <View
+        style={{
+          marginBottom: Platform.OS === 'ios' ? 20 : 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text
+          style={{
+            color: APP_COLORS.text.dark,
+            fontSize: 12,
+          }}>
+          {`Version ${version} ${
+            (BUILD_TYPE as string) === BUILD_TYPE_RELEASE ? '' : '- ALPHA'
+          }`}
+        </Text>
+        <TouchableOpacity onPress={doLogout} style={{ padding: 8 }}>
+          <Text
+            style={{
+              color: '#ed2f2f',
+              marginBottom: 8,
+              fontSize: 17,
+            }}>
+            Logout
+            {/* {strings('buttons.logoutNormal')} */}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
