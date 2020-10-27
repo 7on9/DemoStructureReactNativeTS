@@ -2,6 +2,8 @@ mkdir src
 
 cd src
 
+mkdir @types
+
 mkdir assets
 
 mkdir common
@@ -27,6 +29,8 @@ mkdir redux/actions
 mkdir redux/sagas
 
 mkdir screens
+
+mkdir services
 
 mkdir utils
 
