@@ -1,10 +1,10 @@
-import { LANGUAGE_CHANGE_LOCALE, LANGUAGE_TOGGLE_LOCALE } from './types'
+import { LANGUAGE_CHANGE_LANGUAGE, LANGUAGE_TOGGLE_LANGUAGE } from './types'
 
-export const changeLocale = (locale: string) => ({
-  type: LANGUAGE_CHANGE_LOCALE,
-  locale,
+export const changeLocale = (language: string) => ({
+  type: LANGUAGE_CHANGE_LANGUAGE,
+  language,
 })
 
 export const toggleLanguage = () => ({
-  type: LANGUAGE_TOGGLE_LOCALE,
+  type: LANGUAGE_TOGGLE_LANGUAGE,
 })

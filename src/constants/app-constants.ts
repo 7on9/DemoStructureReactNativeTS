@@ -73,7 +73,7 @@ export const MOMENT_TIME = {
 
 export const FILE_USER_ACCESS_TOKEN = 'USER_ACCESS_TOKEN'
 export const FILE_USER_DATA = 'NEXBUS_USER_DATA'
-export const FILE_LOCALE = 'NEXBUS_LOCALE'
+export const FILE_LANGUAGE = 'NEXBUS_LANGUAGE'
 
 export const APP_COLORS = {
     main: '#3cb54b',
@@ -85,7 +85,7 @@ export const APP_COLORS = {
     background: '#F7F7FA',
 }
 
-export const LOCALE_CALENDAR_VN = {
+export const LANGUAGE_CALENDAR_VN = {
     monthNames: [
         'Tháng 1',
         'Tháng 2',
@@ -123,7 +123,7 @@ export const DEFAULT_DATE_FORMAT = {
     EN: 'MM/DD/YYYY',
 }
 
-export const LOCALE_CALENDAR_EN = {
+export const LANGUAGE_CALENDAR_EN = {
     monthNames: [
         'January',
         'February',
