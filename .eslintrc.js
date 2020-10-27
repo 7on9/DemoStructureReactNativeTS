@@ -7,6 +7,10 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "prettier",
+    "prettier/react",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     // "plugin:@typescript-eslint/recommended",
   ],
   "globals": {
@@ -22,6 +26,7 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
+    "prettier",
     "react",
     "@typescript-eslint"
   ],
@@ -29,5 +34,17 @@ module.exports = {
     "no-unused-vars": "warn",
     "react/prop-types": 0,
     "@typescript-eslint/no-unused-vars": "warn",
+    "import/no-named-as-default": 0,
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src", "node_modules"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"],
+      }
+    },
+    "import/ignore": [
+      "node_modules/react-native/index\\.js$"
+    ]
   }
 };

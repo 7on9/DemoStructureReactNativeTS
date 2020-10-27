@@ -1,10 +1,18 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import React, { FC, useState } from 'react'
-import { View, Text, StyleSheet, ViewProps, Platform, Alert } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ViewProps,
+  Platform,
+  Alert,
+  ScrollView,
+} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import {
   APP_COLORS,
-  APP_ROUTES,
+  // APP_ROUTES,
   APP_SIZES,
   BUILD_TYPE,
   BUILD_TYPE_RELEASE,
@@ -12,11 +20,14 @@ import {
 } from '../constants'
 import { Icon } from './icon'
 import { version } from '../../package.json'
-import { StackActions } from '@react-navigation/native'
+// import { StackActions } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { logOut } from '../redux/actions/auth'
 
 export const Drawer: FC<DrawerContentComponentProps> = (
   props: DrawerContentComponentProps
 ) => {
+  const dispatch = useDispatch()
   const [currentScreenIdx, setCurrentScreenIdx] = useState(0)
   const { navigation } = props
   const screens = [
@@ -90,22 +101,22 @@ export const Drawer: FC<DrawerContentComponentProps> = (
       'Logout',
       'Confirm logout',
       [
-          {
-              text:'Logout',
-              onPress: () => {
-                navigation.dispatch(StackActions.replace(APP_ROUTES.Unauthorized))
-              },
-              style: 'destructive',
+        {
+          text: 'Logout',
+          onPress: () => {
+            dispatch(logOut())
+            // navigation.dispatch(StackActions.replace(APP_ROUTES.Unauthorized))
           },
-          {
-              text: 'Cancel',
-              onPress: () => {},
-              style: 'cancel',
-          },
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
       ],
       { cancelable: true }
-  )
-    
+    )
   }
 
   return (

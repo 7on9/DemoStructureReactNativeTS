@@ -1,3 +1,4 @@
+import { AppConfigProps } from '../../@types/reducer'
 import {
   NETWORK_CHANGE_STATE,
   LANGUAGE_CHANGE_LANGUAGE,
@@ -9,7 +10,7 @@ const initialState = {
   language: 'vi',
 }
 
-export default (state = initialState, action: { type: string, isConnected?: boolean, language: string }) => {
+export default (state = initialState, action: AppConfigProps) => {
   switch (action.type) {
     case NETWORK_CHANGE_STATE: {
       return Object.assign({}, state, { isConnected: action.isConnected })

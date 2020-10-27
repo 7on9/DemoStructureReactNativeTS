@@ -7,8 +7,8 @@ import {
   VERIFY,
 } from './types'
 import AsyncStorage from '@react-native-community/async-storage'
-import { BaseActionType, ErrorActionType, LoginActionType, LoginSuccessActionType } from '.'
 import { FILE_USER_ACCESS_TOKEN, FILE_USER_DATA } from '../../constants'
+import { BaseActionType, ErrorActionType, LoginActionType, LoginSuccessActionType } from '../../@types/actions'
 
 export const resetError = () => {
   return {
