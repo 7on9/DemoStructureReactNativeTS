@@ -1,2 +1,5 @@
 export * from './drawer'
 export * from './icon'
+export * from './header'
+export * from './text'
+export * from './status-bar'

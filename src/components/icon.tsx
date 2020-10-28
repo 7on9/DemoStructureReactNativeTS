@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React, { useMemo } from 'react'
 import { IconProps } from 'react-native-vector-icons/Icon'
 import AntDesign from 'react-native-vector-icons/AntDesign'
